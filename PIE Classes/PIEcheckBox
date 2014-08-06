@@ -1,0 +1,23 @@
+(function() {
+
+	function PIEcheckBox(parentPie, cLabel) {
+		this.initialize(parentPie, cLabel);
+	}
+	
+	var p = PIEcheckBox.prototype;
+	
+	p.pie;
+	p.check;
+	p.container;
+	p.text;
+	p.width;
+	p.height;
+	
+	p.initialize = function(parentPie, cLbael) {
+		this.text = new createjs.Text(cLabel, "12px Arial", "black");
+		
+	}
+
+	window.PIEcheckBox = PIEcheckBox;
+
+}())

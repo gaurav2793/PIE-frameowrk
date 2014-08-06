@@ -1,0 +1,335 @@
+(function() {
+
+	var pieHandle;
+	var pInput;
+	var arrow;
+	var pButton;
+
+	function Experiment(pie) {
+		pieHandle = pie;
+		//pieHandle.PIEsetDrawingArea(0.5,1.0);
+		//pieHandle.PIEsetDisplayColors("#000000", "#AA0000");
+		//pieHandle.PIEsetUIpanelColors(0x00DD00, 0xCCCCCC);
+		//pieHandle.showDeveloperName("Gaurav Arora");
+		//pieHandle.showExperimentName("Arrow class use");
+
+		this.fillPlanetData();
+		this.resetWorld();
+		this.resetExperiment();
+		//pieHandle.PIEcreateResetButton();
+		//pieHandle.ResetControl.addClickListener(this.resetExperiment);
+		//pieHandle.PIEcreatePauseButton();
+		//pieHandle.PIEcreateSpeedButtons();
+		this.createExperimentObjects();
+	}
+
+	var p = Experiment.prototype;
+
+	p.resetExperiment=function()
+	{/*
+		pieHandle.PIEresumeTimer();
+		pieHandle.PIEsetDelay(100);
+	*/}
+	p.fillPlanetData=function()
+	{
+		
+	}
+	p.resetWorld=function()
+	{
+		/* get the PIE drawing area aspect ratio (width/height) to model the dimensions of our experiment area */
+	    PIEaspectRatio = pieHandle.PIEgetDrawingAspectRatio();
+
+	    /* Initialise World Origin and Boundaries */
+	    worldWidth   = 300;                           /* 250 centimeters Width */
+	    worldHeight  = worldWidth / PIEaspectRatio;   /* match world aspect ratio to PIE aspect ratio */
+	    worldOriginX = (-worldWidth/2);               /* Origin at center */
+	    worldOriginY = ( -worldHeight / 2);
+	    pieHandle.PIEsetApplicationBoundaries(worldOriginX,worldOriginY,worldWidth,worldHeight);
+	}
+
+	p.createExperimentObjects=function()
+	{/*
+var v1 = new createjs.Point(10,0);
+var v2 = new createjs.Point(100,0);
+var v3 = new createjs.Point(100,100);
+var v4 = new createjs.Point(0,100);
+var v5 = new Array();
+v5.push(v3);
+v5.push(v4);
+v5.push(v1);
+v5.push(v2);
+var circle = new PIEarc(pieHandle,  0, 0, 100, 0, 90, "black");
+//circle.disablePIEtransform();
+circle.setPIEfill(false);
+circle.setPIEborder(true);
+pieHandle.addDisplayChild(circle.shape);*/
+		
+//rect = new PIEpolygon();
+//pieHandle.addDisplayChild(rect.shape);
+	/*var lIndex;
+var lAngle;
+var dAngle;
+var lRadius;
+var dRadius;
+var pVector;
+var originP;
+var tSprite;
+
+    originP = new createjs.Point(0, 0);
+    pVector = new Array(3);
+    this.PIEobjects =3;
+    colorVector = new Array();
+    radiusVector = new Array();
+    omegaVector = new Array();
+    objectVector = new Array();
+
+    colorVector[0] = "#4444FF";
+    colorVector[1] = "#44FF44";
+    colorVector[2] = "#FF4444";
+    colorVector[3] = "#44FFFF";
+    colorVector[4] = "#FF44FF";
+    colorVector[5] = "#FFFF44";
+    colorVector[6] = "#4444FF";
+    colorVector[7] = "#44FF44";
+    colorVector[8] = "#FF4444";
+    colorVector[9] = "#44FFFF";
+    colorVector[10] = "#FF44FF";
+    lIndex = 2;
+    dAngle = Math.PI / 11;
+    lAngle = dAngle;
+    dRadius = 300 / 22;
+    lRadius = 6*dRadius;
+    
+    while (lIndex < this.PIEobjects)
+    {
+        radiusVector[lIndex] = lRadius;
+        omegaVector[lIndex] = lIndex * 0.001 + 0.001;
+        tSprite = new PIEcircle(pieHandle, 0, 0, lRadius, colorVector[lIndex]);
+		tSprite.setPIEfill(false);
+		tSprite.setPIEborder(true);
+        pieHandle.addDisplayChild(tSprite.shape);
+        switch (lIndex)
+        {
+          case 0 :
+            objectVector[lIndex] = new PIEarc(pieHandle, lRadius, 0, lRadius + dRadius, dRadius, Math.PI/2, colorVector[lIndex]);
+            break;
+          case 1 :
+            objectVector[lIndex] = new PIEarrow(pieHandle, lRadius - (dRadius / 2), 0, lRadius  + (dRadius / 2), 0, colorVector[lIndex]);
+            break;
+          case 2 :
+            objectVector[lIndex] = new PIEcircle(pieHandle, lRadius, 0, dRadius, colorVector[lIndex]);
+            break;
+          case 3 :
+            objectVector[lIndex] = new PIEline(pieHandle, lRadius - (dRadius / 2), 0, lRadius  + (dRadius / 2), 0, colorVector[lIndex], 1, 1.0);
+            break;
+         
+          case 4 :
+            pVector[0] = new createjs.Point(lRadius - (dRadius / 2), 0);
+            pVector[1] = new createjs.Point(lRadius + (dRadius / 2), 0);
+            pVector[2] = new createjs.Point(lRadius, dRadius);
+            objectVector[lIndex] = new PIEpolygon(pieHandle, pVector, colorVector[lIndex]);
+            break;
+          case 5 :
+            objectVector[lIndex] = new PIErectangle(pieHandle, lRadius - (dRadius / 2), -(dRadius / 3), dRadius, (dRadius * 2 / 3), colorVector[lIndex]);
+            break;
+          case 6 :
+            objectVector[lIndex] = new PIEregularPolygon(pieHandle, new createjs.Point(lRadius - (dRadius / 2), 0), new createjs.Point(lRadius + (dRadius / 2), 0), 3, colorVector[lIndex]);
+            break;
+          case 7 :
+            objectVector[lIndex] = new PIEroundedRectangle(pieHandle, lRadius - (dRadius / 2), -(dRadius / 3), dRadius, (dRadius * 2 / 3), colorVector[lIndex]);
+            break;
+          case 8 :
+            objectVector[lIndex] = new PIEthickArrow(pieHandle, lRadius - (dRadius / 2), 0, lRadius  + (dRadius / 2), 0, colorVector[lIndex], 1.0);
+            break;
+          case 9 :
+            objectVector[lIndex] = new PIEtriangle(pieHandle, new createjs.Point(lRadius - (dRadius / 2), 0), new createjs.Point(lRadius + (dRadius / 2), 0), new createjs.Point(lRadius, dRadius), colorVector[lIndex]);
+            break;
+        }
+		if (objectVector[lIndex] != null)
+		{
+		    objectVector[lIndex].setPIEfill(false);
+		    objectVector[lIndex].setPIEborder(true);
+            if (lIndex % 2 == 0) { 
+	   objectVector[lIndex].setPIErevolveAnchor(originP, lAngle); }
+           else { objectVector[lIndex].setPIErevolveAnchor(originP, -lAngle); }
+            
+            pieHandle.addDisplayChild(objectVector[lIndex].shape);
+		}
+        //lAngle = lAngle + dAngle;
+        lRadius = lRadius + 2*dRadius;
+        lIndex++;
+    }
+
+	createjs.Ticker.addEventListener("tick", tick);
+	function tick() { 
+		lAngle+=0.005;
+		objectVector[2].setPIErevolveAnchor(originP, lAngle);
+		pieHandle.experimentDisplay.update();
+	}*/
+
+
+
+
+
+
+	/*	var rect = new PIEsprite();
+		var rect = new PIErectangle(pieHandle,10,10,100,100,"red");
+		rect.disablePIEtransform();
+		pieHandle.experimentDisplay.addChild(rect.shape);
+		var rect2 = new PIEsprite();
+		rect2 = new PIErectangle(pieHandle,10,10,50,50,"blue");
+		rect2.disablePIEtransform();
+		pieHandle.experimentDisplay.addChild(rect2.shape);
+		pieHandle.experimentDisplay.update();
+		var arrow = new PIEarrow(pieHandle,10,10,100,100,"green");
+		arrow.setPIEfill(true);
+		arrow.setPIEborder(true);
+		arrow.disablePIEtransform();
+		pieHandle.experimentDisplay.addChild(arrow.shape);
+		pieHandle.experimentDisplay.update();
+		arrow.changeArrow(200,200,50,50);
+
+		var line = new PIEsprite();
+		line = new PIEline(pieHandle, 100,100,200,200,"blue",2,1);
+		pieHandle.experimentDisplay.addChild(line.shape);
+		pieHandle.experimentDisplay.update();
+		//line.disablePIEtransform();
+		line.changeLine(180,180,250,250);
+
+		var thick = new PIEsprite();
+		thick = new PIEthickArrow(pieHandle, 200, 200, 200, 300, "blue", 1);
+		thick.setPIEborder(true);
+		thick.disablePIEtransform();
+		pieHandle.experimentDisplay.addChild(thick.shape);
+		pieHandle.experimentDisplay.update();
+		thick.changeAngle(Math.PI/4);
+		//thick.setPIEinvisible();
+
+		var v1 = new createjs.Point(0,0);
+		var v2 = new createjs.Point(100,-100);
+		var v3 = new createjs.Point(100,100);
+/*		var triangle = new PIEsprite();
+		triangle = new PIEtriangle(pieHandle, v1, v2, v3,"blue");
+		triangle.setPIEfill(true);
+		//triangle.disablePIEtransform();
+		triangle.setPIEborder(true);
+		triangle.setPIEvisible();
+		//pieHandle.experimentDisplay.addChild(triangle.shape);
+		pieHandle.experimentDisplay.update();
+		//triangle.changeLocation(50,50);
+		//triangle.changeSize(1.5);
+
+/*		var quad = new PIEsprite();
+		var v4 = new createjs.Point(0,0);
+		var v5 = new createjs.Point(100,0);
+		var v6 = new createjs.Point(105,100);
+		var v7 = new createjs.Point(0,100);
+		/*quad = new PIEquadilateral(pieHandle,v4,v5,v6,v7,"green");
+		pieHandle.experimentDisplay.addChild(quad.shape);
+		pieHandle.experimentDisplay.update();
+		//quad.disablePIEtransform();
+		//quad.setPIEinvisible();
+		quad.changeLocation(50,0);*/
+		var v = new Array();
+/*		v.push(v4);
+		v.push(v5);
+		v.push(v6);
+		v.push(v7);
+				
+		/*var poly = new PIEpolygon(pieHandle, v, "green");
+		pieHandle.experimentDisplay.addChild(poly.shape);
+		pieHandle.experimentDisplay.update();
+		poly.changeLocation(50,0);*/
+/*
+		var arc = new PIEcircle(pieHandle,0,0,50,"black");
+		pieHandle.addDisplayChild(arc.shape);
+
+		/*var poly = new PIEsprite();
+		var v8 = new createjs.Point(10,10);
+		var v9 = new createjs.Point(50,50);
+		poly = new PIEregularPolygon(pieHandle,v8,v9,6,"black");
+		pieHandle.experimentDisplay.addChild(poly.shape);
+		pieHandle.experimentDisplay.update();
+		//poly.disablePIEtransform();
+		//poly.changeLocation(100,100);
+		/*var rounded = new PIEsprite();
+		rounded = new PIEroundedRectangle(pieHandle,0,0,200,200,10);
+		pieHandle.experimentDisplay.addChild(rounded.shape);
+		pieHandle.experimentDisplay.update();
+		rounded.changeBorderRadius(20);
+		rounded.changeLocation(10,10);
+
+		
+		/*var name = new PIElabel(pieHandle,"Gaurav Arora",20,"#0000000","#0000000");
+		name.x=20;
+		name.y=20;
+		name.text = "Gaurav Arora";
+		//pieHandle.stage.addChild(text);
+		//pieHandle.stage.update();
+		pieHandle.addTitleChild(name);
+
+		console.log('child added');*/
+		/*var rect = new PIEsprite();
+		rect = new PIErectangle(pieHandle,0,0,10,10,"#336633");
+		pieHandle.addDisplayChild(rect);
+/*		var line = new PIEsprite();
+		line = new PIeline(pieHandle,10,10,200,200,"black",5,1.0);
+		pieHandle.addChild(line);    */
+		//console.log(pieHandle.experimentUIpanel);
+		/*var x,y,width,height;
+		zebra.ready(function(){
+               var zCanvas= new zebra.ui.zCanvas(pieHandle.experimentUIpanel.canvas.id);
+               
+               
+                pButton=new PIEbutton("you are in button");
+                pInput=new PIEinput("TextField",6);
+                pInput.x = 10;
+                pInput.y = 10;
+                pInput.width = 250;
+                pInput.height = 40;
+
+                zCanvas.root.add(pButton);
+                zCanvas.root.add(pInput);
+
+                pButton.x=40;
+                pButton.y=140;
+                pButton.width=250;
+                pButton.height=80;
+
+                pButton.addClickListener(handler);
+
+               	pInput.setTextBold();
+                pInput.changeTextField(pInput, 10, 10, 50, 50);
+                pInput.addChangeListener(thandler);
+
+            });
+	}
+
+	p.sample = function(value) {
+		/* */
+	}
+/*
+	var handler = function() {
+		//alert('hi!');
+		//console.log('there');
+		//console.log(pieHandle.stage1);
+		var cAngle = pInput.getValue();
+		arrow.changeAngle(cAngle);
+		pieHandle.experimentDisplay.update();
+
+	}
+
+
+	var thandler = function(val) {
+		//alert('hi!');
+		//this.val=val;
+		//console.log(val);
+		//console.log(pieHandle.stage1);
+		//pArrow.changeAngle(Math.PI/2);
+		//pieHandle.stage1.update();
+
+	}
+*/
+	window.Experiment = Experiment;
+
+}())
