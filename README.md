@@ -1,6 +1,8 @@
 PIE-frameowrk
 =============
 
+Developed by : Gaurav Arora and Aayushi Aggarwal.
+
 A Javascript framework using the createjs library. Used to display animations on HTML5 canvas.
 
 Purpose: As a part of my job at Summer Internship at IIT-Mumbai in 2014.
